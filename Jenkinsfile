@@ -4,14 +4,12 @@ pipeline{
     tools {
         maven 'maven'
     }
-	
-	environment{
+    environment{
        ArtifactId = readMavenPom().getArtifactId()
        Version = readMavenPom().getVersion()
        Name = readMavenPom().getName()
        GroupId = readMavenPom().getGroupId()
     }
-	
     stages {
         // Specify various stage with in stages
 
@@ -30,7 +28,7 @@ pipeline{
             }
         }
 		
-		       // Stage 4 : Print some information
+		 // Stage 4 : Print some information
         stage ('Print Environment variables'){
                     steps {
                         echo "Artifact ID is '${ArtifactId}'"
@@ -39,8 +37,8 @@ pipeline{
                         echo "Name is '${Name}'"
                     }
                 }
-		
-		//Stage 3 publish artifact to nexus
+
+        // Stage3 : Publish the artifacts to Nexus
         stage ('Publish to Nexus'){
             steps {
                 script {
@@ -54,7 +52,7 @@ pipeline{
                 type: 'war']], 
                 credentialsId: '35e9b26e-269a-4804-a70d-6b2ec7a608ce', 
                 groupId: "${GroupId}", 
-                nexusUrl: '172.20.10.113:8081', 
+                nexusUrl: '172.20.10.140:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
                 repository: "${NexusRepo}", 
@@ -62,7 +60,6 @@ pipeline{
              }
             }
         }
-	       
-    }
 
+    }
 }
