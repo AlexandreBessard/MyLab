@@ -30,6 +30,16 @@ pipeline{
             }
         }
 		
+		       // Stage 4 : Print some information
+        stage ('Print Environment variables'){
+                    steps {
+                        echo "Artifact ID is '${ArtifactId}'"
+                        echo "Version is '${Version}'"
+                        echo "GroupID is '${GroupId}'"
+                        echo "Name is '${Name}'"
+                    }
+                }
+		
 		//Stage 3 publish artifact to nexus
         stage ('Publish to Nexus'){
             steps {
@@ -52,30 +62,7 @@ pipeline{
              }
             }
         }
-
-        // Stage 4 : Print some information
-        stage ('Print Environment variables'){
-                    steps {
-                        echo "Artifact ID is '${ArtifactId}'"
-                        echo "Version is '${Version}'"
-                        echo "GroupID is '${GroupId}'"
-                        echo "Name is '${Name}'"
-                    }
-                }
-		
-        // Stage3 : Publish the source code to Sonarqube
-        //stage ('Sonarqube Analysis'){
-        //    steps {
-        //        echo ' Source code published to Sonarqube for SCA......'
-        //        withSonarQubeEnv('sonarqube'){ // You can override the credential to be used
-        //             sh 'mvn sonar:sonar'
-        //        }
-
-        //   }
-        //}
-
-        
-        
+	       
     }
 
 }
